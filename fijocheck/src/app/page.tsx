@@ -207,7 +207,7 @@ export default function LandingPage() {
               <h4 className="text-xl font-bold">Pago Protegido</h4>
               <p className="text-slate-500 text-sm">
                 Retenemos el pago al vendedor hasta que el producto esté
-                verificado y en tus manos.
+                verificado y en camino a tus manos.
               </p>
             </div>
             <div className="space-y-4">
