@@ -117,25 +117,30 @@ export default function LandingPage() {
                   <label className="block text-sm font-semibold mb-1 text-slate-500">
                     Distancia (Km ida)
                   </label>
-                  <input
-                    type="text"
-                    placeholder="Ej: 25"
-                    value={distanciaRaw}
-                    className={`w-full p-3 bg-slate-100 rounded-xl outline-none transition ${
-                      errores.distancia
-                        ? "ring-2 ring-red-500"
-                        : "focus:ring-2 focus:ring-blue-500"
-                    }`}
-                    onChange={(e) => {
-                      const valorFormateado = formatCLP(e.target.value);
-                      setDistanciaRaw(valorFormateado);
-                      setDistancia(
-                        Number(valorFormateado.replace(/\./g, "")) * 2
-                      );
-                      if (errores.distancia)
-                        setErrores({ ...errores, distancia: undefined });
-                    }}
-                  />
+                  <div className="relative group">
+                    <input
+                      type="number" // CAMBIO CLAVE: Cambiado de "text" a "number" para activar las flechas
+                      placeholder="Ej: 25"
+                      value={distanciaRaw}
+                      className={`w-full p-3 bg-slate-100 rounded-xl outline-none transition ${
+                        errores.distancia
+                          ? "ring-2 ring-red-500"
+                          : "focus:ring-2 focus:ring-blue-500"
+                      }`}
+                      onChange={(e) => {
+                        const valor = e.target.value;
+                        setDistanciaRaw(valor);
+
+                        // Actualizamos la distancia real para el cálculo (Ida + Vuelta)
+                        const kmIda = Number(valor) || 0;
+                        setDistancia(kmIda * 2);
+
+                        // Limpiar error si existe
+                        if (errores.distancia)
+                          setErrores({ ...errores, distancia: "" }); // Usamos "" en lugar de undefined para evitar errores de TS
+                      }}
+                    />
+                  </div>
                   {errores.distancia && (
                     <p className="text-red-500 text-xs mt-1 font-medium">
                       {errores.distancia}
